@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.3)
+
+project(alsa-pre VERSION 1.0.0 LANGUAGES C)
+
+set(${PROJECT_NAME}_VERSION_MAJOR 1)
+set(${PROJECT_NAME}_VERSION_MINOR 0)
+set(${PROJECT_NAME}_VERSION_PATCH 0)
+set(${PROJECT_NAME}_VERSION_STRING ${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}.${${PROJECT_NAME}_VERSION_PATCH})
+
+add_library(${PROJECT_NAME} SHARED alsa.c)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION ${${PROJECT_NAME}_VERSION_STRING}
+    C_STANDARD 11
+    C_STANDARD_REQUIRED YES
+)
+
+target_compile_options(${PROJECT_NAME}
+    PRIVATE
+        -Wall -Wextra -Wpedantic
+)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        ${CMAKE_THREAD_LIBS_INIT}
+        dl
+)
+
